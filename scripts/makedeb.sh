@@ -23,9 +23,9 @@ cp -r !($install_folder|makedeb.sh|prep.sh) $install_folder/$install_path/$NAME
 # smaze git slozku
 find $install_folder/$install_path/$NAME -depth -name '.git' -exec rm -rf '{}' \;
 
-printf "Creating package"
+printf "Creating package\n"
 fpm \
-    -s dir -t deb -C "$NAME" \
+    -s dir -t deb -C "$install_folder" \
     -p "$NAME-$version-$iteration" \
     --name "$NAME" \
     --maintainer "LD" \
@@ -37,5 +37,5 @@ fpm \
     -d bash \
     usr
 
-printf "Package created"
+printf "Package created\n"
 rm -r $install_folder
