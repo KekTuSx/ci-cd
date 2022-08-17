@@ -17,7 +17,7 @@ iteration=$(date +%s) # pocet sekund od pocatku IT veku
 # Script
 ########
 
-printf "Preparing environment"
+printf "Preparing environment\n"
 mkdir -p $path
 
 # Zkopiruje soubory s vyjimkou tech specifikovanych v zavorce
@@ -27,7 +27,7 @@ cp -r !($work_dir|makedeb.sh|prep.sh) $path
 # smaze git slozku
 find $path -depth -name '.git' -exec rm -rf '{}' \;
 
-printf "Creating package\n"
+printf "Creating package\n\n"
 fpm \
     -s dir -t deb -C "$work_dir" \
     -p "$NAME-$version-$iteration.deb" \
@@ -38,8 +38,6 @@ fpm \
     --description "Test" \
     --before-install scripts/before-install.sh \
     --after-install scripts/after-install.sh \
-    -d bash \
     usr
 
-printf "\nPackage created\n"
 rm -r $work_dir
