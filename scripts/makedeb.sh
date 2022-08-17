@@ -4,29 +4,33 @@
 
 set -e
 
-# Variables
+# Promenne
 ###########
 export NAME="garges"
-install_folder="dist"
-install_path="usr/share"
+export INSTALL_PATH="usr/share"
+work_dir="dist"
+path=$work_dir/$INSTALL_PATH/$NAME
+
 version="1.0.0"
 iteration=$(date +%s) # pocet sekund od pocatku IT veku
 
 # Script
 ########
-mkdir -p $install_folder/$install_path/$NAME
 
-# zkopiruje veci az na ty zadanechm
+printf "Preparing environment"
+mkdir -p $path
+
+# Zkopiruje soubory s vyjimkou tech specifikovanych v zavorce
 shopt -s extglob # zapne extended globbing?
-cp -r !($install_folder|makedeb.sh|prep.sh) $install_folder/$install_path/$NAME
+cp -r !($work_dir|makedeb.sh|prep.sh) $path
 
 # smaze git slozku
-find $install_folder/$install_path/$NAME -depth -name '.git' -exec rm -rf '{}' \;
+find $path -depth -name '.git' -exec rm -rf '{}' \;
 
 printf "Creating package\n"
 fpm \
-    -s dir -t deb -C "$install_folder" \
-    -p "$NAME-$version-$iteration" \
+    -s dir -t deb -C "$work_dir" \
+    -p "$NAME-$version-$iteration.deb" \
     --name "$NAME" \
     --maintainer "LD" \
     --version "$version" \
@@ -37,5 +41,5 @@ fpm \
     -d bash \
     usr
 
-printf "Package created\n"
-rm -r $install_folder
+printf "\nPackage created\n"
+rm -r $work_dir

@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-printf "Preparing for packaging\n"
-mkdir -p /usr/share/"$NAME" && cd /usr/share/"$NAME"
+printf "Before installation\n"
+mkdir -p /"$INSTALL_PATH"/"$NAME" && cd /usr/share/"$NAME"
 
 rm -rf temp/ log/
