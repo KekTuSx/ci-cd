@@ -16,13 +16,14 @@ iteration=$(date +%s) # pocet sekund od pocatku IT veku
 ########
 mkdir -p $install_folder/$install_path/$NAME
 
-# zkopiruje veci az na ty zadane
+# zkopiruje veci az na ty zadanechm
 shopt -s extglob # zapne extended globbing?
 cp -r !($install_folder|makedeb.sh|prep.sh) $install_folder/$install_path/$NAME
 
 # smaze git slozku
 find $install_folder/$install_path/$NAME -depth -name '.git' -exec rm -rf '{}' \;
 
+printf "Creating package"
 fpm \
     -s dir -t deb -C "$NAME" \
     -p "$NAME-$version-$iteration" \
@@ -36,4 +37,5 @@ fpm \
     -d bash \
     usr
 
+printf "Package created"
 rm -r $install_folder

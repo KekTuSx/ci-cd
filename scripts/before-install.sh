@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
-mkdir -p /usr/share/"$NAME" && cd "$_"
+printf "Preparing for packaging"
+mkdir -p /usr/share/"$NAME" && cd /usr/share/"$NAME"
 
 rm -rf temp/ log/
