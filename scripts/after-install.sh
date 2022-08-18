@@ -17,7 +17,12 @@ printf "Running after install script\n"
 # make -j
 # make altinstall
 
-pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash
+# Instalace Python packagu; bez progress baru
+pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash --progress-bar off
+
+# Prida /usr/local/bin do PATH, pokud tam neni
+# tqdm, unidecode a jeste nejake skripty se tam instaluji a hodi warning, kdyz to neni v PATH
+[[ ":$PATH:" != *":/usr/local/bin:"* ]] && PATH="/usr/local/bin:${PATH}"
 
 rm -f /tmp/package-*
 

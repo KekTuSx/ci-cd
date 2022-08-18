@@ -6,7 +6,7 @@ set -e
 # python_name="Python-$python_ver.tgz"
 
 printf "Running before install script\n"
-mkdir -p /"$INSTALL_PATH"/"$NAME" && cd /"$INSTALL_PATH"/"$NAME"
+mkdir -p "$INSTALL_PATH"/"$NAME" && cd "$INSTALL_PATH"/"$NAME"
 
 rm -rf temp/ log/
 
