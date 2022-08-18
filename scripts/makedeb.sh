@@ -4,7 +4,7 @@
 
 set -e
 
-# Promenne
+# Vars
 ###########
 export NAME="garges"
 export INSTALL_PATH="usr/share"
