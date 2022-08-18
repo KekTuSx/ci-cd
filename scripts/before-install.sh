@@ -8,17 +8,6 @@ set -e
 printf "Running before install script\n"
 mkdir -p /"$INSTALL_PATH"/"$NAME" && cd /"$INSTALL_PATH"/"$NAME"
 
-# Instalace Pythonu a dalsich pozadavku
-# wget $python_dl -O $python_name
-# tar -xvf $python_name
-# cd $python_name
-
-# ./configure --enable-optimizations
-# make -j
-# make altinstall
-
-pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash
-
 rm -rf temp/ log/
 
 printf "Before install script finished\n"

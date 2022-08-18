@@ -1,6 +1,7 @@
 #!/bin/bash
 #
 #
+# Run from root folder
 
 set -e
 
