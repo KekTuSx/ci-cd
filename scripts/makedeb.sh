@@ -6,10 +6,10 @@ set -e
 
 # Vars
 ###########
-export NAME="garges"
-export INSTALL_PATH="usr/share"
+export NAME="anchoice-importer"
+export INSTALL_PATH="/opt/$NAME"
 work_dir="dist"
-path=$work_dir/$INSTALL_PATH/$NAME
+path=$work_dir$INSTALL_PATH/$NAME
 
 version="1.0.0"
 iteration=$(date +%s) # pocet sekund od pocatku IT veku
@@ -30,14 +30,29 @@ find $path -depth -name '.git' -exec rm -rf '{}' \;
 printf "Creating package\n\n"
 fpm \
     -s dir -t deb -C "$work_dir" \
-    -p "$NAME-$version-$iteration.deb" \
+    -p "$NAME"_"$version"_"$iteration".deb \
     --name "$NAME" \
     --maintainer "LD" \
     --version "$version" \
     --iteration "$iteration" \
-    --description "Test" \
+    --description "Anchoice importer" \
     --before-install scripts/before-install.sh \
     --after-install scripts/after-install.sh \
-    usr
+    -d "python3" \
+    -d "python3-pip" \
+    -d "wget" \
+    -d "redis" \
+    -d "build-essential" \
+    -d "zlib1g-dev" \
+    -d "libncurses5-dev" \
+    -d "libgdbm-dev" \
+    -d "libnss3-dev" \
+    -d "libssl-dev" \
+    -d "libreadline-dev" \
+    -d "libffi-dev" \
+    -d "libsqlite3-dev" \
+    -d "libbz2-dev" \
+    opt
 
+# cleanup
 rm -r $work_dir
