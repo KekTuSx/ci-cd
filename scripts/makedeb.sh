@@ -28,7 +28,7 @@ cp -r !($work_dir|makedeb.sh|prep.sh) $path
 # smaze git slozku
 find $path -depth -name '.git' -exec rm -rf '{}' \;
 
-printf "Creating package\n\n"
+printf "Creating package\n"
 fpm \
     -s dir -t deb -C "$work_dir" \
     -p "$NAME"_"$version"_"$iteration".deb \
@@ -41,6 +41,8 @@ fpm \
     --after-install scripts/after-install.sh \
     -d "python3" \
     -d "python3-pip" \
+    -d "python3-dev" \
+    -d "libpg-dev" \
     -d "wget" \
     -d "redis" \
     -d "build-essential" \
