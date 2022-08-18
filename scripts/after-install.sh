@@ -21,4 +21,4 @@ pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd
 
 rm -f /tmp/package-*
 
-printf "Bbefore install script finished\n"
+printf "After install script finished\n"

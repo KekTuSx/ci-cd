@@ -10,7 +10,7 @@ set -e
 export NAME="anchoice-importer"
 export INSTALL_PATH="/opt/$NAME"
 work_dir="dist"
-path=$work_dir$INSTALL_PATH/$NAME
+path=$work_dir$INSTALL_PATH
 
 version="1.0.0"
 iteration=$(date +%s) # pocet sekund od pocatku IT veku
@@ -42,7 +42,7 @@ fpm \
     -d "python3" \
     -d "python3-pip" \
     -d "python3-dev" \
-    -d "libpg-dev" \
+    -d "libpq-dev" \
     -d "wget" \
     -d "redis" \
     -d "build-essential" \
