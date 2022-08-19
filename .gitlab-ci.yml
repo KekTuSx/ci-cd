@@ -1,8 +1,28 @@
 stages:
-  - build
   - deploy
 
-build:
-  stage: build
+deploy:
+  stage: deploy
+  except:
+    - tags
   tags: 
     - docker
+  image: bigcloudcz/fpm
+  script: |
+    # SSH
+    mkdir ~/.ssh
+    echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
+    echo "$DEPLOY_SSH_ID" >> ~/.ssh/known_hosts
+
+    # smazani starych balicku
+    rm *.deb
+
+    # vytvoreni balicu
+    ./scripts/makedeb.sh
+
+    # nazev package do promenne
+    pkg=$(find pkg -name '*.deb' -printf '%P\n' | head -n 1)
+
+    # instalace lokalniho balicku
+    # v /etc/sudoers musi byt '$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt'
+    scp "$pkg" "SCP_DEPLOY_HOST":/tmp && ssh $SSH_DEPLOY_HOST "sudo apt update && sudo apt install ./$pkg"

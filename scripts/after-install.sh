@@ -3,8 +3,11 @@ set -e
 
 printf "Running after install script\n"
 
-# Instalace Pythonu a dalsich pozadavku
+# Prida /usr/local/bin do PATH, pokud tam neni
+# tqdm, unidecode a jeste nejake skripty se tam instaluji a hodi warning, kdyz to neni v PATH
+[[ ":$PATH:" != *":/usr/local/bin:"* ]] && PATH="/usr/local/bin:${PATH}"
 
+# SCRAPPED Instalace nejnovejsiho Pythonu a dalsich pozadavku
 # python_ver="3.10.6"
 # python_dl="https://www.python.org/ftp/python/$python_ver/Python-$python_ver.tgz"
 # python_name="Python-$python_ver.tgz"
@@ -17,13 +20,8 @@ printf "Running after install script\n"
 # make -j
 # make altinstall
 
-# Prida /usr/local/bin do PATH, pokud tam neni
-# tqdm, unidecode a jeste nejake skripty se tam instaluji a hodi warning, kdyz to neni v PATH
-[[ ":$PATH:" != *":/usr/local/bin:"* ]] && PATH="/usr/local/bin:${PATH}"
-
 # Instalace Python packagu; bez progress baru
 pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash --progress-bar off
-
 
 rm -f /tmp/package-*
 
