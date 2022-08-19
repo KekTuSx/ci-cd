@@ -1,38 +1,29 @@
 #!/bin/bash
 #
 #
-# Run from root folder
+# Run from root folder wtih ./scripts/makedeb.sh
 
 set -e
-
-# Vars
-###########
-export NAME="anchoice-importer"
-export INSTALL_PATH="/opt/$NAME"
-work_dir="dist"
-path=$work_dir$INSTALL_PATH
-
-version="1.0.0"
-iteration=$(date +%s) # pocet sekund od pocatku IT veku
+source vars.sh
 
 # Script
 ########
 
 printf "Preparing environment\n"
-mkdir -p $path
+mkdir -p "$path"
 
 # Zkopiruje soubory s vyjimkou tech specifikovanych v zavorce
 shopt -s extglob # zapne extended globbing?
-cp -r !($work_dir|makedeb.sh|prep.sh) $path
+cp -r !($work_dir|makedeb.sh|prep.sh) "$path"
 
 # smaze git slozku
-find $path -depth -name '.git' -exec rm -rf '{}' \;
+find "$path" -depth -name '.git' -exec rm -rf '{}' \;
 
 printf "Creating package\n"
 fpm \
     -s dir -t deb -C "$work_dir" \
-    -p "$NAME"_"$version"_"$iteration".deb \
-    --name "$NAME" \
+    -p "$name"_"$version"_"$iteration".deb \
+    --name "$name" \
     --maintainer "LD" \
     --version "$version" \
     --iteration "$iteration" \
