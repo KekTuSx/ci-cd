@@ -30,10 +30,10 @@ fpm \
   -s dir -t deb -C "$work_dir" \
   -p "$name"_"$version"_"$iteration".deb \
   --name "$name" \
-  --maintainer "LD" \
+  --maintainer "$maintainer" \
   --version "$version" \
   --iteration "$iteration" \
-  --description "Anchoice importer" \
+  --description "$description" \
   --before-install scripts/before-install.sh \
   --after-install scripts/after-install.sh \
   -d "python3" \

@@ -10,3 +10,5 @@ work_path=$work_dir$install_path
 
 version="1.0.0"
 iteration=$(date +%s) # pocet sekund od pocatku IT veku
+maintainer="LD"
+description="Anchoice importer"
