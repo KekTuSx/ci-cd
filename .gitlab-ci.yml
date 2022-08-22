@@ -24,5 +24,5 @@ deploy:
     pkg=$(find pkg -name '*.deb' -printf '%P\n' | head -n 1)
 
     # instalace lokalniho balicku
-    # v /etc/sudoers musi byt '$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt'
+    # v /etc/sudoers musi byt '$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt', nebo v /etc/sudoers.d/$USER '$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt'
     scp "$pkg" "DEPLOY_HOST":/tmp && ssh $DEPLOY_HOST "sudo apt update && sudo apt install ./$pkg"
