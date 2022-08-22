@@ -1,2 +1,0 @@
-Pokud je CI/CD pres uzivatele a ne roota, musi byt v sudoers a bud v /etc/sudoers $USER ALL=(ALL:ALL) NOPASSWD:/bin/apt, nebo (lepe) v /etc/sudoers.d/$USER jeho adresar s tim samym
-echo "$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt" | sudo tee /etc/sudoers.d/$USER

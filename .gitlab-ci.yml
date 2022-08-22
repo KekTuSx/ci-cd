@@ -7,22 +7,22 @@ deploy:
     - tags
   tags: 
     - docker
-  image: bigcloudcz/fpm
+  image: skandyla/fpm
   script: |
     # SSH
     mkdir ~/.ssh
     echo "$DEPLOY_SSH_KEY" > ~/.ssh/id_rsa && chmod 600 ~/.ssh/id_rsa
     echo "$DEPLOY_SSH_ID" >> ~/.ssh/known_hosts
 
-    # smazani starych balicku
+    # Remove old packages
     rm *.deb
 
-    # vytvoreni balicu
+    # Create package
     ./scripts/makedeb.sh
 
-    # nazev package do promenne
+    # Puts the name of the latest package into a variable
     pkg=$(find pkg -name '*.deb' -printf '%P\n' | head -n 1)
 
-    # instalace lokalniho balicku
-    # v /etc/sudoers musi byt '$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt', nebo v /etc/sudoers.d/$USER '$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt'
+    # Copies package to target server
+    # If you have a self hosted apt source, use that.
     scp "$pkg" "DEPLOY_HOST":/tmp && ssh $DEPLOY_HOST "sudo apt update && sudo apt install ./$pkg"

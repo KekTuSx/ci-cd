@@ -3,37 +3,36 @@
 # shellcheck source=vars.sh
 #
 # 
-# Spustit z root adresare projektu pomoci ./scripts/makedeb.sh
+# Run from root project folder with ./scripts/makedeb.sh
 
-set -e # Ihned opustit skript, pokud nastane chyba
+set -e # exits the script immeadeately if an error occurs
 
 # Variables
 ################################
-name="anchoice-importer"
+name="program"
 install_path="/opt/$name"
 work_dir="dist"
 work_path=$work_dir$install_path
 
 version="1.0.0"
-iteration=$(date +%s) # pocet sekund od pocatku IT veku
+iteration=$(date +%s) # number of seconds since the dawn of IT time
 maintainer="LD"
-description="Anchoice importer"
+description="blazingly fast program"
 
 # Script
 ###############################
 printf "Preparing environment\n"
 mkdir -p "$work_path"
 
-# Zkopiruje soubory a adresare s vyjimkou tech specifikovanych v zavorce
+# Copies files/directories except the ones specifiend in parenthesis to work dir
 shopt -s extglob # zapne extended globbing?
 cp -r !($work_dir|scripts|*.deb) "$work_path"
 
-# Vytvori kopii before-script.sh a prepise v ni promenne, aby fungovaly na kazdem stroji.
-# Mozna je lepsi to pro kazdy program hard codenout.
+# Creates a copy of template before install script and replaces i
 cp scripts/before-install-template.sh scripts/before-install.sh
 sed -i "s|replace_path|$install_path|" scripts/before-install.sh # HACK
 
-# smaze git slozku
+# Delets .git folder
 find "$work_path" -depth -name '.git' -exec rm -rf '{}' \;
 
 printf "Creating package\n"
@@ -48,22 +47,8 @@ fpm \
   --before-install scripts/before-install.sh \
   --after-install scripts/after-install.sh \
   --before-remove scripts/before-remove.sh \
-  -d "python3" \
-  -d "python3-pip" \
-  -d "python3-dev" \
-  -d "libpq-dev" \
   -d "wget" \
-  -d "redis" \
-  -d "build-essential" \
-  -d "zlib1g-dev" \
-  -d "libncurses5-dev" \
-  -d "libgdbm-dev" \
-  -d "libnss3-dev" \
-  -d "libssl-dev" \
-  -d "libreadline-dev" \
-  -d "libffi-dev" \
-  -d "libsqlite3-dev" \
-  -d "libbz2-dev" \
+
   opt
 
 # cleanup
