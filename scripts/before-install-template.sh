@@ -1,5 +1,13 @@
 #!/bin/bash
+#
+# Prida /usr/local/bin do PATH, vytvori instalacni adresare
 set -e
+
+# Prida /usr/local/bin do PATH, pokud tam neni
+# tqdm, unidecode a jeste nejake skripty se tam instaluji a hodi warning, kdyz to neni v PATH
+if ! echo "$PATH" | grep -q "/usr/local/bin"
+  then PATH="/usr/local/bin:${PATH}"
+fi
 
 installation_path="replace_path"
 

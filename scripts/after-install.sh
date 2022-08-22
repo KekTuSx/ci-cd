@@ -1,11 +1,9 @@
 #!/bin/bash
+#
+# Nainstaluje Python package
 set -e
 
-printf "Running after install script\n"
-
-# Prida /usr/local/bin do PATH, pokud tam neni
-# tqdm, unidecode a jeste nejake skripty se tam instaluji a hodi warning, kdyz to neni v PATH
-[[ ":$PATH:" != *":/usr/local/bin:"* ]] && PATH="/usr/local/bin:${PATH}"
+printf "Running after install/upgrade script\n"
 
 # SCRAPPED Instalace nejnovejsiho Pythonu a dalsich pozadavku
 # python_ver="3.10.6"
@@ -22,7 +20,9 @@ printf "Running after install script\n"
 
 # Instalace Python packagu; bez progress baru
 pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash --progress-bar off
+pip check
+echo "$PATH"
 
 rm -f /tmp/package-*
 
-printf "After install script finished\n"
+printf "After instal/upgrade script finished\n"
