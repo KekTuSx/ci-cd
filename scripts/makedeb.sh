@@ -36,6 +36,7 @@ fpm \
   --description "$description" \
   --before-install scripts/before-install.sh \
   --after-install scripts/after-install.sh \
+  --before-remove scripts/before-remove.sh \
   -d "python3" \
   -d "python3-pip" \
   -d "python3-dev" \
