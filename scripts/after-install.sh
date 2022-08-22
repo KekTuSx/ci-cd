@@ -18,11 +18,16 @@ printf "Running after install/upgrade script\n"
 # make -j
 # make altinstall
 
+# Prida /usr/local/bin do PATH, pokud tam neni
+# tqdm, unidecode a jeste nejake skripty se tam instaluji
+if ! echo "$PATH" | grep -q "/usr/local/bin"
+  then PATH="/usr/local/bin:${PATH}"
+fi
+
 # Instalace Python packagu; bez progress baru
 pip install pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash --progress-bar off
 pip check
-echo "$PATH"
 
 rm -f /tmp/package-*
 
-printf "After instal/upgrade script finished\n"
+printf "After install/upgrade script finished\n"
