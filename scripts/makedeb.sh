@@ -6,10 +6,21 @@
 # Spustit z root adresare projektu pomoci ./scripts/makedeb.sh
 
 set -e # Ihned opustit skript, pokud nastane chyba
-source scripts/vars.sh # Import promennych
+
+# Variables
+################################
+name="anchoice-importer"
+install_path="/opt/$name"
+work_dir="dist"
+work_path=$work_dir$install_path
+
+version="1.0.0"
+iteration=$(date +%s) # pocet sekund od pocatku IT veku
+maintainer="LD"
+description="Anchoice importer"
 
 # Script
-########
+###############################
 printf "Preparing environment\n"
 mkdir -p "$work_path"
 
