@@ -1,8 +1,18 @@
 #!/bin/bash
 #
-# Prompt na odinstalovani python packagu
+# Prompt na odstraneni Python packagu pri odinstalaci balicku
 set -e
 
-read -rp "Chcete odinstalovat i Python dependencies? (y/n): " confirm && [[ $confirm == [yY] || $confirm == [yY][eE][sS] ]] || exit 1
+while true; do
+  read -rp "Uninstall Python dependencies? (y/n)" choice
+  case "$choice" in 
+    [yY]|[yY][eE][sS] )
+          echo "Proceeding..."
+          pip uninstall -y pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash
+          break;;
 
-pip uninstall pika requests orjson zeep pyyaml xmltodict tqdm python-dateutil xlrd unidecode psycopg2 Pillow ImageHash --progress-bar off
+    [nN]|[nN][oO] ) break;;
+
+    * ) echo "Invalid input" >&2
+  esac
+done
