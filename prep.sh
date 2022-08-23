@@ -7,5 +7,5 @@ mkdir ~/.ssh
 read -pr "Enter a public SSH key: " pub
 echo "$pub" >> ~/.ssh/authorized_keys
 
-# Sudoers
+# Sudoers - allows current user to invoke sudo apt commands without a password
 echo "$USER ALL=(ALL:ALL) NOPASSWD:/bin/apt" | sudo tee /etc/sudoers.d/"$USER"
