@@ -6,7 +6,7 @@ Read about it:
 [Gitlab CI/CD](https://docs.gitlab.com/ee/ci/)
 
 ## How to set up
-### Prequesities
+### Prerequesities
 - Gitlab Runner - [how to set up](https://docs.gitlab.com/runner/install/)
 - a pair of SSH keys
 - Debian based target server
